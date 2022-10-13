@@ -1,5 +1,9 @@
 {
   "name": "spotify-shuffle",
+  "author": {
+    "name": "Nehemiah Dias",
+    "url": "https://ndias.info"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
