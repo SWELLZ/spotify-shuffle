@@ -1,9 +1,12 @@
+// import Login from "./components/loginComponents/Login";
+import {BrowserRouter} from 'react-router-dom'
+import Landing from "./components/landingComponents/Landing";
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello World
-    </h1>
+    <BrowserRouter>
+      <Landing />
+    </BrowserRouter>
   );
 }
 
