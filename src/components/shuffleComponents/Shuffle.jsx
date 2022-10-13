@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import Songs from './Songs';
 
 const Shuffle = () => {
     const [token, setToken] = useState('');
     const [playlists, setPlaylists] = useState([]);
+    const [clickedPlaylist, setClickedPlaylist] = useState();
     
     useEffect(() => {
         //variables for access token
@@ -27,21 +29,29 @@ const Shuffle = () => {
     useEffect(() => {
         fetchPlaylists();
     }, [token])
+    useEffect(() => {
+        console.log(playlists)
+    }, [playlists])
 
     return (
+        <>
         <div className='bg-black-500 pt-7 min-h-screen p-5'>
-        <h1 className='text-white text-center text-2xl font-bold'>Choose your playlist</h1>
-        {playlists &&
-            <div className='grid bg-black-500 text-white grid-cols-3 gap-4 place-content-center mt-7'> 
-                {playlists.map((item, i) => (
-                    <button key={i} className='flex items-center justify-between hover:bg-black-400 p-2 rounded-md h-fit'>
-                        <img className='w-48 h-48 rounded-sm' src={item.images[0].url} alt='playlist cover' />
-                        <h3 className='font-bold mx-auto'>{item.name}</h3>
-                    </button>
-                ))}
-            </div>
-        }
+            <h1 className='text-white text-center text-2xl font-bold'>Choose your playlist</h1>
+            {playlists &&
+                <div className='grid bg-black-500 text-white grid-cols-3 gap-4 place-content-center mt-7'> 
+                    {playlists.map((item, i) => (
+                        <button onClick={() => setClickedPlaylist(item)} key={i} className='flex items-center justify-between hover:bg-black-400 p-2 rounded-md h-fit'>
+                            <img className='w-48 h-48 rounded-sm' src={item.images[0].url} alt='playlist cover' />
+                            <h3 className='font-bold mx-auto'>{item.name}</h3>
+                        </button>
+                    ))}
+                </div>
+            }
         </div>
+        { clickedPlaylist &&
+            <Songs playlist={clickedPlaylist} token={token} />
+        }
+        </>
     )
 }
 
