@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Songs from './Songs';
 import logo from '../resources/spotify-logo.png';
+import Feedback from '../feedbackComponents/Feedback';
 
 const Shuffle = () => {
     const [token, setToken] = useState('');
     const [playlists, setPlaylists] = useState([]);
     const [clickedPlaylist, setClickedPlaylist] = useState();
+    const [success, setSuccess] = useState(false);
+
+    const toggleSuccess = () => {
+        setSuccess(false)
+        document.body.style.overflow = 'unset';
+    }
+
+    if (success) {
+        document.body.style.overflow = 'hidden'
+    }
     
     useEffect(() => {
         //variables for access token
@@ -36,6 +47,9 @@ const Shuffle = () => {
     return (
         <>
         <div className='bg-black-500 pt-7 min-h-screen p-5'>
+            {success && 
+                <Feedback toggle={toggleSuccess} />
+            }
             <img className='w-1/2 mb-5 max-w-xs' alt='spotify logo' src={logo} />
             <h1 className='text-white text-center text-2xl font-bold'>Choose your playlist</h1>
             {playlists &&
@@ -50,7 +64,7 @@ const Shuffle = () => {
             }
         </div>
         { clickedPlaylist &&
-            <Songs playlist={clickedPlaylist} token={token} toggle={setClickedPlaylist} />
+            <Songs playlist={clickedPlaylist} token={token} toggle={setClickedPlaylist} success={setSuccess} />
         }
         </>
     )

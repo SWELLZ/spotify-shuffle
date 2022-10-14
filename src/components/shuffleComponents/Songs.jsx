@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Songs = ({ playlist, token, toggle }) => {
+const Songs = ({ playlist, token, toggle, success }) => {
     const [playlistDetails, setPlaylistDetails] = useState([]);
 
     const confirmChanges = async () => {
@@ -42,8 +42,10 @@ const Songs = ({ playlist, token, toggle }) => {
                 })
             }
             await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, deleteOptions)
-            await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, updateOptions)
-
+            await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, updateOptions);
+            window.scrollTo({top: 0})
+            success(true);
+            toggle(null);
         }
     }
 
