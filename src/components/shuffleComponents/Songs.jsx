@@ -2,15 +2,21 @@ import React, { useEffect, useState } from 'react'
 
 const Songs = ({ playlist, token, toggle }) => {
     const [playlistDetails, setPlaylistDetails] = useState([]);
-    let originalPlaylist = [];
+    const [originalPlaylist, setOriginalPlaylist] = useState([]);
 
     const confirmChanges = async () => {
-        console.log(playlist)
+        console.log(originalPlaylist)
         const requestOptions = {
-            method: 'DELETE',
-            headers: {'Authorization': 'Bearer ' + token}
+            method: "DELETE",
+            "Content-Type": "application/json",
+            headers: {"Authorization": "Bearer " + token},
+            body: JSON.stringify({
+                tracks: originalPlaylist
+            }),
+            Host: "api.spotify.com"
+            
         }
-        await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks/1.1`, requestOptions)
+        await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, requestOptions).then(response => response.json()).then(data => console.log(data))
     }
 
     const shufflePlaylist = () => {
@@ -27,7 +33,6 @@ const Songs = ({ playlist, token, toggle }) => {
             list[k] = t;
         }
         setPlaylistDetails([...list]);
-        originalPlaylist = list
     }
 
     const fetchPlaylistItems = async () => {
@@ -44,7 +49,7 @@ const Songs = ({ playlist, token, toggle }) => {
             offset += 100;
         } while (items.length < count);
         setPlaylistDetails(items)
-        originalPlaylist = items
+        setOriginalPlaylist(items.map(item => item.track.uri))
     }
 
     useEffect(() => {
