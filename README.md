@@ -1,7 +1,12 @@
 # Spotify Shuffle
 
+## [LIVE LINK](https://shuffleforspotify.netlify.app/)
+
 ## Problem
 I've always been a big hater of spotify's built in shuffle feature so I never use it. I normally shuffle my playlist by using Random.org and randomizing my playlist there, then copying and pasting it back into spotify. That takes up too much time and it's not possible to do on a mobile device so I'm making this site to achieve that. It will use the Spotify API to seamlessly rearrange the playlist on any device.
+
+## Functionality
+The user is able to login to their Spotify account which gives an access token which is then used to access the user's playlist. The user is prompted with their own playlists which they can click/tap. If and when the user clicks on a playlist, the tracks are displayed along with a SHUFFLE, CONFIRM, and CANCEL button. When the user clicks SHUFFLE, the playlist will be rearranged and they can keep pressing that until they are satisfied. When they are satisfied, they can click CONFIRM and it will use the data and the algorithms to seamlessly rearrange their playlist using the Spotify API. Then they are given a popup that tells them their request has been successful; If the user does change their mind, they can press cancel anytime without anything changing in their account. 
 
 ## Technology Used
 - ReactJS
