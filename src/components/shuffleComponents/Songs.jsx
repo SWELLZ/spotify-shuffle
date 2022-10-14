@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const Songs = ({ playlist, token }) => {
+const Songs = ({ playlist, token, toggle }) => {
     const [playlistDetails, setPlaylistDetails] = useState([]);
 
     const fetchPlaylistItems = async () => {
@@ -15,7 +15,7 @@ const Songs = ({ playlist, token }) => {
             count = response.total;
             items = [...items, ...response.items];
             offset += 100;
-        } while(items.length < count);
+        } while (items.length < count);
         setPlaylistDetails(items)
     }
 
@@ -24,7 +24,9 @@ const Songs = ({ playlist, token }) => {
     }, [playlist])
 
     return (
-        <div className='min-h-screen bg-black-500 text-white p-5'>
+        <div className='min-h-screen bg-black-500 text-white p-5 relative'>
+            <p className='text-center'>Here is your playlist as it is, if you would like to randomize it, click the button below</p>
+            <button className='bg-green-500 p-4 rounded-full w-1/6 text-black-500 font-bold hover:bg-green-600 mt-3 text-center mx-auto'>SHUFFLE</button>
             <h1 className='text-center text-2xl font-bold my-2'>{playlist.name}</h1>
             <div>
                 <table className='mx-auto w-full'>
@@ -49,7 +51,6 @@ const Songs = ({ playlist, token }) => {
                     ))}
                 </table>
             </div>
-            <a href="#">Back to top</a>
         </div>
     )
 }

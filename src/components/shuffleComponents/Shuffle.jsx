@@ -29,9 +29,6 @@ const Shuffle = () => {
     useEffect(() => {
         fetchPlaylists();
     }, [token])
-    useEffect(() => {
-        console.log(playlists)
-    }, [playlists])
 
     return (
         <>
@@ -49,7 +46,7 @@ const Shuffle = () => {
             }
         </div>
         { clickedPlaylist &&
-            <Songs playlist={clickedPlaylist} token={token} />
+            <Songs playlist={clickedPlaylist} token={token} toggle={setClickedPlaylist} />
         }
         </>
     )
