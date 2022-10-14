@@ -6,17 +6,29 @@ const Songs = ({ playlist, token, toggle }) => {
 
     const confirmChanges = async () => {
         console.log(originalPlaylist)
-        const requestOptions = {
+        let newUri = {"uris": []}
+        playlistDetails.forEach(item => {
+            newUri.uris.push('spotify:track:' + item.track.id)
+        })
+
+        const updateOptions = {
+            method: "POST",
+            "Content-Type": "application/json",
+            headers: {"Authorization": "Bearer " + token},
+            body: JSON.stringify(newUri)
+        }
+
+        const deleteOptions = {
             method: "DELETE",
             "Content-Type": "application/json",
             headers: {"Authorization": "Bearer " + token},
             body: JSON.stringify({
                 tracks: originalPlaylist
-            }),
-            Host: "api.spotify.com"
-            
+            })
         }
-        await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, requestOptions).then(response => response.json()).then(data => console.log(data))
+        
+        await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, deleteOptions).then(response => response.json()).then(data => console.log(data));
+        await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, updateOptions).then(response => response.json()).then(data => console.log(data))
     }
 
     const shufflePlaylist = () => {
@@ -49,7 +61,7 @@ const Songs = ({ playlist, token, toggle }) => {
             offset += 100;
         } while (items.length < count);
         setPlaylistDetails(items)
-        setOriginalPlaylist(items.map(item => item.track.uri))
+        setOriginalPlaylist(items.map(item => ({'uri': item.track.uri})))
     }
 
     useEffect(() => {
@@ -63,6 +75,7 @@ const Songs = ({ playlist, token, toggle }) => {
                 <button onClick={shufflePlaylist} className='bg-green-500 transition-all duration-300 p-3 rounded-full w-1/6 text-black-500 font-bold hover:bg-green-600 text-center'>SHUFFLE</button>
                 <button onClick={confirmChanges} className='p-3 rounded-full w-1/6 text-black-300 transition-all duration-300 font-bold text-center border-2 border-black-300 hover:bg-black-300 hover:text-white'>Confirm Changes</button>
                 <button onClick={() => toggle(null)} className='underline hover:no-underline'>Cancel</button>
+                <button onClick={test}>Test</button>
             </div>
             <div className='flex justify-center content-center my-3 gap-4'>
                 
