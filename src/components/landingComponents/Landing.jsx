@@ -8,10 +8,10 @@ const Landing = () => {
   return (
     <div className="w-full h-screen flex flex-col justify-center bg-black-500">
         <div className='text-white flex flex-col gap-6 text-center items-center'>
-            <h1 className='text-4xl font-bold'>SPOTIFY SHUFFLE</h1>
-            <p className='w-1/2 text-center'>Let's face it, the built in shuffle feature in Spotify is terrible (no offense). That's why Spotify Shuffle is here; All you need to do is sign in and choose a playlist, we will take care of the rest and seemlessly rearrange your playlist for</p>
+            <h1 className='text-4xl font-bold w-4/5'>SHUFFLE FOR SPOTIFY</h1>
+            <p className='w-4/5 xs:w-1/2 text-center'>Gone are the days of dealing with the Spotify shuffle feature playing the same songs back to back. Shuffle For Spotify allows you to seamlessly rearrange your entire playlist in truly random order! Just connect your Spotify account, select a playlist, and watch the magic happen!</p>
             <div>
-                <a href={`${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${encodeURI('playlist-modify-private playlist-modify-public')}`} className='bg-green-500 rounded-full p-4 hover:bg-green-600 font-bold flex align-center'>CONNECT SPOTIFY</a>
+                <a href={`${endpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${encodeURI('playlist-modify-private playlist-modify-public')}`} className='bg-green-500 rounded-full p-4 hover:bg-green-600 font-bold text-black-500 flex align-center'>CONNECT SPOTIFY</a>
             </div>
         </div>
     </div>

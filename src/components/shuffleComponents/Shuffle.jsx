@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Songs from './Songs';
+import logo from '../resources/spotify-logo.png';
 
 const Shuffle = () => {
     const [token, setToken] = useState('');
@@ -16,6 +17,7 @@ const Shuffle = () => {
             access_token = hash.split('&').find(elem => elem.startsWith('#access_token')).split('=')[1];
         }
         setToken(access_token);
+        // eslint-disable-next-line
     }, [])
 
     const fetchPlaylists = async () => {
@@ -28,17 +30,19 @@ const Shuffle = () => {
 
     useEffect(() => {
         fetchPlaylists();
+        // eslint-disable-next-line
     }, [token])
 
     return (
         <>
         <div className='bg-black-500 pt-7 min-h-screen p-5'>
+            <img className='w-1/2 mb-5 max-w-xs' alt='spotify logo' src={logo} />
             <h1 className='text-white text-center text-2xl font-bold'>Choose your playlist</h1>
             {playlists &&
-                <div className='grid bg-black-500 text-white grid-cols-3 gap-4 place-content-center mt-7'> 
+                <div className='grid grid-cols-1 bg-black-500 text-white xl:grid-cols-3 gap-4 place-content-center mt-7 sm:grid-cols-2'> 
                     {playlists.map((item, i) => (
                         <button onClick={() => setClickedPlaylist(item)} key={i} className='flex items-center justify-between hover:bg-black-400 p-2 rounded-md h-fit'>
-                            <img className='w-48 h-48 rounded-sm' src={item.images[0].url} alt='playlist cover' />
+                            <img className='w-32 h-32 sm:w-48 sm:h-48 rounded-sm' src={item.images[0].url} alt='playlist cover' />
                             <h3 className='font-bold mx-auto'>{item.name}</h3>
                         </button>
                     ))}

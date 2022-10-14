@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 const Songs = ({ playlist, token, toggle }) => {
     const [playlistDetails, setPlaylistDetails] = useState([]);
@@ -43,7 +43,7 @@ const Songs = ({ playlist, token, toggle }) => {
             }
             await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, deleteOptions)
             await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, updateOptions)
-            
+
         }
     }
 
@@ -81,29 +81,27 @@ const Songs = ({ playlist, token, toggle }) => {
 
     useEffect(() => {
         fetchPlaylistItems();
+        // eslint-disable-next-line
     }, [playlist])
 
     return (
         <div className='min-h-screen bg-black-500 text-white p-5 relative'>
-            <p className='text-center'>Here is your playlist as it is, if you would like to randomize it, click the button below. When you're happy with your changes, click confirm changes to rearrange the playlist in Spotify</p>
-            <div className='flex justify-center content-center my-3 gap-4'>
-                <button onClick={shufflePlaylist} className='bg-green-500 transition-all duration-300 p-3 rounded-full w-1/6 text-black-500 font-bold hover:bg-green-600 text-center'>SHUFFLE</button>
-                <button onClick={confirmChanges} className='p-3 rounded-full w-1/6 text-black-300 transition-all duration-300 font-bold text-center border-2 border-black-300 hover:bg-black-300 hover:text-white'>Confirm Changes</button>
+            <p className='text-center'>Here is your playlist as it is, if you would like to randomize it, click the SHUFFLE button. When you're happy with your changes, click confirm changes to rearrange the playlist in Spotify. Easy as that!</p>
+            <div className='flex items-center lg:justify-center content-center my-10 gap-4 flex-col lg:flex-row'>
+                <button onClick={shufflePlaylist} className='bg-green-500 transition-all duration-300 p-3 rounded-full w-4/5 lg:w-1/6 text-black-500 font-bold hover:bg-green-600 text-center'>SHUFFLE</button>
+                <button onClick={confirmChanges} className='p-3 rounded-full w-4/5 lg:w-1/6 text-black-300 transition-all duration-300 font-bold text-center border-2 border-black-300 hover:bg-black-300 hover:text-white'>Confirm Changes</button>
                 <button onClick={() => toggle(null)} className='underline hover:no-underline'>Cancel</button>
             </div>
-            <div className='flex justify-center content-center my-3 gap-4'>
-                
-            </div>
-            <h1 className='text-center text-2xl font-bold my-2'>{playlist.name}</h1>
+            <h1 className='text-center text-2xl font-bold my-10'>{playlist.name}</h1>
             <div>
                 <table className='mx-auto w-full'>
                     <thead className='text-left text-black-200 border-b-black-200 border-b'>
                         <th>#</th>
                         <th>Title</th>
-                        <th>Album</th>
+                        <th className='hidden xs:table-cell'>Album</th>
                     </thead>
                     {playlistDetails.map((item, i) => (
-                        <tbody className='hover:bg-black-400 rounded-full' key={i}>
+                        <tbody className='hover:bg-black-400 text-xs sm:text-base' key={i}>
                             <td className='pl-3'>{i + 1}</td>
                             <td className='flex items-center p-2'>
                                 <img className='rounded-sm' src={item.track.album.images[2].url} alt='track cover' />
@@ -112,7 +110,7 @@ const Songs = ({ playlist, token, toggle }) => {
                                     <p className='text-sm text-black-200'>{item.track.artists[0].name}</p>
                                 </div>
                             </td>
-                            <td>{item.track.album.name}</td>
+                            <td className='hidden xs:table-cell'>{item.track.album.name}</td>
                         </tbody>
 
                     ))}
