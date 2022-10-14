@@ -2,33 +2,49 @@ import React, { useEffect, useState } from 'react'
 
 const Songs = ({ playlist, token, toggle }) => {
     const [playlistDetails, setPlaylistDetails] = useState([]);
-    const [originalPlaylist, setOriginalPlaylist] = useState([]);
 
     const confirmChanges = async () => {
-        console.log(originalPlaylist)
-        let newUri = {"uris": []}
+        let updatedPlaylist = []
         playlistDetails.forEach(item => {
-            newUri.uris.push('spotify:track:' + item.track.id)
+            updatedPlaylist.push('spotify:track:' + item.track.id)
         })
+        
+        let tempOriginal = [];
+        let tempUpdated = [];
 
-        const updateOptions = {
-            method: "POST",
-            "Content-Type": "application/json",
-            headers: {"Authorization": "Bearer " + token},
-            body: JSON.stringify(newUri)
-        }
-
-        const deleteOptions = {
-            method: "DELETE",
-            "Content-Type": "application/json",
-            headers: {"Authorization": "Bearer " + token},
-            body: JSON.stringify({
-                tracks: originalPlaylist
-            })
+        for (let i = 0; i < playlistDetails.length; i += 100) {
+            const originalChunk = playlistDetails.slice(i, i + 100);
+            const updatedChunk = updatedPlaylist.slice(i, i + 100);
+            tempOriginal.push(originalChunk)
+            tempUpdated.push(updatedChunk)
         }
         
-        await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, deleteOptions).then(response => response.json()).then(data => console.log(data));
-        await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, updateOptions).then(response => response.json()).then(data => console.log(data))
+        for (let i = 0; i < tempOriginal.length; i++){
+            let original = tempOriginal[i]
+            original = original.map(item => ({'uri': item.track.uri}))
+            let updated = tempUpdated[i]
+
+            const updateOptions = {
+                method: "POST",
+                "Content-Type": "application/json",
+                headers: {"Authorization": "Bearer " + token},
+                body: JSON.stringify({
+                    "uris": updated
+                })
+            }
+    
+            const deleteOptions = {
+                method: "DELETE",
+                "Content-Type": "application/json",
+                headers: {"Authorization": "Bearer " + token},
+                body: JSON.stringify({
+                    tracks: original
+                })
+            }
+            await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, deleteOptions)
+            await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, updateOptions)
+            
+        }
     }
 
     const shufflePlaylist = () => {
@@ -61,7 +77,6 @@ const Songs = ({ playlist, token, toggle }) => {
             offset += 100;
         } while (items.length < count);
         setPlaylistDetails(items)
-        setOriginalPlaylist(items.map(item => ({'uri': item.track.uri})))
     }
 
     useEffect(() => {
@@ -75,7 +90,6 @@ const Songs = ({ playlist, token, toggle }) => {
                 <button onClick={shufflePlaylist} className='bg-green-500 transition-all duration-300 p-3 rounded-full w-1/6 text-black-500 font-bold hover:bg-green-600 text-center'>SHUFFLE</button>
                 <button onClick={confirmChanges} className='p-3 rounded-full w-1/6 text-black-300 transition-all duration-300 font-bold text-center border-2 border-black-300 hover:bg-black-300 hover:text-white'>Confirm Changes</button>
                 <button onClick={() => toggle(null)} className='underline hover:no-underline'>Cancel</button>
-                <button onClick={test}>Test</button>
             </div>
             <div className='flex justify-center content-center my-3 gap-4'>
                 
