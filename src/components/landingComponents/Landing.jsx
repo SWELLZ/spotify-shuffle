@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from '../footerComponents/Footer'
 const Landing = () => {
   const clientId = `${process.env.REACT_APP_CLIENT_ID}`
   const redirectUri = `${process.env.REACT_APP_REDIRECT_URI}`

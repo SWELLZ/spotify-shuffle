@@ -46,7 +46,7 @@ const Shuffle = () => {
 
     return (
         <>
-        <div className='bg-black-500 pt-7 min-h-screen p-5'>
+        <div className='bg-black-500 pt-7 min-h-screen p-5 relative'>
             {success && 
                 <Feedback toggle={toggleSuccess} />
             }

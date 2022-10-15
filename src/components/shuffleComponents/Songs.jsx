@@ -88,7 +88,7 @@ const Songs = ({ playlist, token, toggle, success }) => {
 
     return (
         <div className='min-h-screen bg-black-500 text-white p-5 relative'>
-            <p className='text-center'>Here is your playlist as it is, if you would like to randomize it, click the SHUFFLE button. When you're happy with your changes, click confirm changes to rearrange the playlist in Spotify. Easy as that!</p>
+            <p className='text-center'>Here is your playlist as it is, if you would like to randomize it, click the SHUFFLE button. When you're happy with your changes, click Confirm Changes to rearrange the playlist in Spotify. Easy as that!</p>
             <div className='flex items-center lg:justify-center content-center my-10 gap-4 flex-col lg:flex-row'>
                 <button onClick={shufflePlaylist} className='bg-green-500 transition-all duration-300 p-3 rounded-full w-4/5 lg:w-1/6 text-black-500 font-bold hover:bg-green-600 text-center'>SHUFFLE</button>
                 <button onClick={confirmChanges} className='p-3 rounded-full w-4/5 lg:w-1/6 text-black-300 transition-all duration-300 font-bold text-center border-2 border-black-300 hover:bg-black-300 hover:text-white'>Confirm Changes</button>
