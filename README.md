@@ -2,6 +2,8 @@
 
 ## [LIVE LINK](https://shuffleforspotify.netlify.app/)
 
+![Demo](./src/components/resources/demo.png)
+
 ## Problem
 I've always been a big hater of spotify's built in shuffle feature so I never use it. I normally shuffle my playlist by using Random.org and randomizing my playlist there, then copying and pasting it back into spotify. That takes up too much time and it's not possible to do on a mobile device so I'm making this site to achieve that. It will use the Spotify API to seamlessly rearrange the playlist on any device.
 
